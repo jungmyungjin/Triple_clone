@@ -1,29 +1,33 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-  position: absolute;
   box-sizing: border-box;
   top: 0px;
   width: 100%;
-  height: 54em;
+  height: 860px;
   display: flex;
   justify-content: center;
+  align-items: flex-end;
+
   background-image: url("./img/img-01-bg.png");
   background-repeat: no-repeat;
-  background-size: 100% 54em;
+  background-size: 100% 100%;
 `;
 
 const ContentsLayer = styled.div`
   display: flex;
   /* background-color: blanchedalmond; */
   width: 1040px;
-  height: 800px;
+  height: 810px;
+  margin-top: 50px;
   box-sizing: border-box;
   position: absolute;
-  top: 2em;
+  top: 0;
   flex-direction: row;
   padding: 12em 0px;
   justify-content: space-between;
+  align-items: flex-start;
+  overflow: hidden;
 `;
 
 const MainLayer = styled.div`
@@ -51,7 +55,6 @@ const MainLayer = styled.div`
       color: ${(props) => props.theme.colorBgTextColor};
     }
   }
-  /* z-index: 10; */
 `;
 
 const MainHeader = styled.div`
@@ -82,19 +85,22 @@ const SubTitle = styled.span`
 
 const SubLayer = styled.div`
   box-sizing: border-box;
+  height: 800px;
+  width: 330px;
   align-items: center;
+  /* background-color: bisque; */
 `;
 
-const SublayerPhone = styled.div`
+const SubLayerPhone = styled.div`
   background-color: #fafafa;
   width: 330px;
   height: 680px;
   border-radius: 48px;
   display: flex;
   justify-content: center;
-  z-index: 9;
   align-items: center;
   font-size: 1em;
+
   img {
     border-radius: 48px;
     width: 300px;
@@ -104,6 +110,17 @@ const SublayerPhone = styled.div`
   }
   box-shadow: rgb(0 0 0 / 18%) 0px 13px 24px 0px,
     rgb(0 0 0 / 8%) 0px -6px 9px 0px inset;
+`;
+
+const PhoneFrame = styled.div`
+  background-color: #fafafa;
+  /* background-color: aquamarine; */
+  width: 162px;
+  height: 38px;
+  border-radius: 18px;
+  position: absolute;
+  right: 80px;
+  top: 192px;
 `;
 
 function MainSection() {
@@ -121,9 +138,10 @@ function MainSection() {
           <button>앱 설치하기</button>
         </MainLayer>
         <SubLayer>
-          <SublayerPhone>
+          <SubLayerPhone>
+            <PhoneFrame />
             <img src="./img/img_01_screen.png" alt="main_phone_img" />
-          </SublayerPhone>
+          </SubLayerPhone>
         </SubLayer>
       </ContentsLayer>
     </Container>
