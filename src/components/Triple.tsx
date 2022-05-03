@@ -5,10 +5,10 @@ import Sections from "./Sections";
 function Triple() {
   return (
     <div>
-      Triple
+      {/* Triple */}
       <BaseHeader />
       <Sections />
-      <BaseFooter />
+      {/* <BaseFooter /> */}
     </div>
   );
 }

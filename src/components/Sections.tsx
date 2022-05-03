@@ -4,9 +4,8 @@ import Section from "./Section";
 function Sections() {
   return (
     <div>
-      Section
       <MainSection />
-      {/* <Section /> */}
+      <Section />
     </div>
   );
 }
