@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import Phone from "./Phone";
 
 const Container = styled.div`
-  box-sizing: border-box;
-  top: 0px;
+  /* top: 0px; */
   width: 100%;
   height: 860px;
   display: flex;
@@ -20,7 +20,6 @@ const ContentsLayer = styled.div`
   width: 1040px;
   height: 810px;
   margin-top: 50px;
-  box-sizing: border-box;
   position: absolute;
   top: 0;
   flex-direction: row;
@@ -28,6 +27,11 @@ const ContentsLayer = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   overflow: hidden;
+  transition: opacity 1s ease-out; // animation으로 가능 keyframe
+  /* opacity: 0;
+  &:hover {
+    opacity: 1;
+  } */
 `;
 
 const MainLayer = styled.div`
@@ -59,68 +63,34 @@ const MainLayer = styled.div`
 
 const MainHeader = styled.div`
   flex-direction: column;
+  color: ${(props) => props.theme.lightBgTextColor};
   height: 246px;
 `;
 
 const MainTitle = styled.span`
   font-size: 5.5em;
   display: flex;
-  font-family: sans-serif;
+  font-family: sans-serif; // root level
   font-weight: bold;
-  color: ${(props) => props.theme.lightBgTextColor};
-  letter-spacing: 0.8px;
-  line-height: 1.1em;
-  height: 2.5em;
+  letter-spacing: 0.8px; // 보통 안씀
+  line-height: 1.1em; // em 안돼.
+  height: 2.5em; // em 절대 안써/
   /* background-color: aqua; */
   white-space: pre-wrap;
 `;
 const SubTitle = styled.span`
   font-family: sans-serif;
   letter-spacing: 0px;
-  font-weight: 500;
-  color: ${(props) => props.theme.lightBgTextColor};
+  font-weight: 500; // default 500
   /* background-color: darkorange; */
-  padding-top: 1px;
+  padding-top: 1px; // line-hieght 주던가 margin
 `;
 
 const SubLayer = styled.div`
-  box-sizing: border-box;
   height: 800px;
   width: 330px;
   align-items: center;
   /* background-color: bisque; */
-`;
-
-const SubLayerPhone = styled.div`
-  background-color: #fafafa;
-  width: 330px;
-  height: 680px;
-  border-radius: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1em;
-
-  img {
-    border-radius: 48px;
-    width: 300px;
-    height: 650px;
-    background-repeat: no-repeat;
-    background-size: contain;
-  }
-  box-shadow: rgb(0 0 0 / 18%) 0px 13px 24px 0px,
-    rgb(0 0 0 / 8%) 0px -6px 9px 0px inset;
-`;
-
-const PhoneFrame = styled.div`
-  background-color: #fafafa;
-  /* background-color: aquamarine; */
-  width: 162px;
-  height: 38px;
-  border-radius: 18px;
-  position: absolute;
-  right: 80px;
-  top: 192px;
 `;
 
 function MainSection() {
@@ -138,10 +108,7 @@ function MainSection() {
           <button>앱 설치하기</button>
         </MainLayer>
         <SubLayer>
-          <SubLayerPhone>
-            <PhoneFrame />
-            <img src="./img/img_01_screen.png" alt="main_phone_img" />
-          </SubLayerPhone>
+          <Phone width={330} height={680} imgSrc={"./img/img_01_screen.png"} />
         </SubLayer>
       </ContentsLayer>
     </Container>

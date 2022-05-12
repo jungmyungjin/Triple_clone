@@ -1,11 +1,13 @@
 import MainSection from "./MainSection";
-import Section from "./Section";
+import SectionTwo from "./SectionTwo";
+import SectionThree from "./SectionThree";
 
 function Sections() {
   return (
     <div>
       <MainSection />
-      <Section />
+      <SectionTwo />
+      <SectionThree />
     </div>
   );
 }

@@ -17,7 +17,7 @@ const AppAward = styled.div`
   justify-content: center;
 `;
 const AwardImg = styled.div`
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,7 +26,7 @@ const AwardImg = styled.div`
   /* background-color: Lime; */
   margin-right: 100px;
   figure {
-    margin: 0;
+    /* margin: 0; */
     line-height: 0;
     position: relative;
     figcaption {
@@ -34,7 +34,7 @@ const AwardImg = styled.div`
       top: 280px;
       text-align: center;
       color: rgba(58, 58, 58, 0.7);
-      line-height: 1;
+      /* line-height: 1; */
       left: 0;
       right: 0;
       bottom: 0;
@@ -42,7 +42,7 @@ const AwardImg = styled.div`
     img {
       height: 338px;
       width: 400px;
-      z-index: 1000;
+      /* z-index: 1000; */
     }
   }
 `;
@@ -91,7 +91,7 @@ const Award = styled.div`
   }
 `;
 
-function Section() {
+function SectionTwo() {
   return (
     <Container>
       <AppAward>
@@ -148,4 +148,4 @@ function Section() {
   );
 }
 
-export default Section;
+export default SectionTwo;
