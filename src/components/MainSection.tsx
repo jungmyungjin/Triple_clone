@@ -1,5 +1,10 @@
 import styled, { css } from "styled-components";
 import Phone from "./Phone";
+import {
+  AnimationSlideUp,
+  AnimationSlideDown,
+  AnimationShow,
+} from "./AnimationSlideUp";
 
 const Container = styled.div`
   /* top: 0px; */
@@ -41,6 +46,7 @@ const MainLayer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   white-space: pre-wrap;
+
   button {
     justify-items: end;
     width: 180px;
@@ -58,6 +64,7 @@ const MainLayer = styled.div`
       background-color: ${(props) => props.theme.lightBgColor};
       color: ${(props) => props.theme.colorBgTextColor};
     }
+    animation: ${AnimationShow} 2s ease;
   }
 `;
 
@@ -77,6 +84,7 @@ const MainTitle = styled.span`
   height: 2.5em; // em 절대 안써/
   /* background-color: aqua; */
   white-space: pre-wrap;
+  animation: ${AnimationSlideUp} 0.8s ease-in-out;
 `;
 const SubTitle = styled.span`
   font-family: sans-serif;
@@ -84,6 +92,7 @@ const SubTitle = styled.span`
   font-weight: 500; // default 500
   /* background-color: darkorange; */
   padding-top: 1px; // line-hieght 주던가 margin
+  animation: ${AnimationShow} 2s 0s ease;
 `;
 
 const SubLayer = styled.div`
@@ -91,6 +100,7 @@ const SubLayer = styled.div`
   width: 330px;
   align-items: center;
   /* background-color: bisque; */
+  animation: ${AnimationShow} 0.6s 0s ease-in;
 `;
 
 function MainSection() {

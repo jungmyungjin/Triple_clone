@@ -1,6 +1,12 @@
 import styled from "styled-components";
 import Phone from "./Phone";
 import { BrowserRouter } from "react-router-dom";
+import {
+  AnimationSlideUp,
+  AnimationSlideDown,
+  AnimationShow,
+} from "./AnimationSlideUp";
+
 const StyledContainer = styled.div`
   position: relative;
   background-color: rgb(250, 250, 250);
@@ -28,6 +34,8 @@ const StyledHeading = styled.h2`
   font-size: 52px;
   line-height: 68px;
   top: 140px;
+  opacity: 0;
+  animation: ${AnimationSlideUp} 0.8s ease-in-out 1 forwards;
 `;
 
 const StyledSubHeading = styled.div`
@@ -37,7 +45,8 @@ const StyledSubHeading = styled.div`
   letter-spacing: -0.283333px;
   position: relative;
   top: 170px;
-  /* width: 100%; */
+  opacity: 0;
+  animation: ${AnimationSlideUp} 0.8s ease-in-out 0.08s 1 forwards;
 `;
 
 const StyledPhones = styled.div`
@@ -51,6 +60,8 @@ const StyledPhones = styled.div`
     margin: 0px 10px;
     /* background-color: aqua; */
   }
+  opacity: 0;
+  animation: ${AnimationSlideUp} 0.8s ease-in-out 0.1s 1 forwards;
 `;
 
 function SectionThree() {

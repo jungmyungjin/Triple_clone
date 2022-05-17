@@ -1,4 +1,10 @@
 import styled from "styled-components";
+import {
+  AnimationSlideUp,
+  AnimationSlideDown,
+  AnimationShow,
+} from "./AnimationSlideUp";
+import CountUp from "react-countup";
 
 const Container = styled.div`
   display: flex;
@@ -25,6 +31,7 @@ const AwardImg = styled.div`
   width: 400px;
   /* background-color: Lime; */
   margin-right: 100px;
+  animation: ${AnimationSlideUp} 0.5s ease-in-out;
   figure {
     /* margin: 0; */
     line-height: 0;
@@ -56,7 +63,7 @@ const AwardDescription = styled.div`
   justify-content: space-between;
   margin-left: 100px;
 `;
-const Discription = styled.div`
+const Description = styled.div`
   /* background-color: blanchedalmond; */
   height: 220px;
   display: flex;
@@ -69,6 +76,8 @@ const Discription = styled.div`
   strong {
     font-weight: bold;
   }
+  opacity: 0;
+  animation: ${AnimationSlideUp} 0.5s ease-in-out 0.3s 1 forwards;
 `;
 const Award = styled.div`
   /* background-color: cyan; */
@@ -79,6 +88,8 @@ const Award = styled.div`
   color: rgba(58, 58, 58, 0.8);
   font-weight: bold;
   line-height: 22px;
+  opacity: 0;
+  animation: ${AnimationSlideUp} 0.5s ease-in-out 0.5s 1 forwards;
 
   div {
     display: flex;
@@ -102,22 +113,28 @@ function SectionTwo() {
           </figure>
         </AwardImg>
         <AwardDescription>
-          <Discription>
+          <Description>
             <ul>
               <li>
-                <strong>700만 명</strong>
+                <strong>
+                  <CountUp start={600} end={700} />만 명
+                </strong>
                 <span>의 여행자</span>
               </li>
               <li>
-                <strong>100만 개</strong>
+                <strong>
+                  <CountUp start={60} end={100} />만 개
+                </strong>
                 <span>의 여행자</span>
               </li>
               <li>
-                <strong>470만 개</strong>
+                <strong>
+                  <CountUp start={400} end={470} />
+                </strong>
                 <span>의 여행자</span>
               </li>
             </ul>
-          </Discription>
+          </Description>
           <Award>
             <div>
               <img src="./img/img-02-badge-google@3x.png" alt="" />
