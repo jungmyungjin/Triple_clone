@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import handleViewport from "react-in-viewport";
 import Phone from "./Phone";
 import {
   AnimationSlideUp,
@@ -32,14 +33,11 @@ const ContentsLayer = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   overflow: hidden;
-  transition: opacity 1s ease-out; // animation으로 가능 keyframe
-  /* opacity: 0;
-  &:hover {
-    opacity: 1;
-  } */
 `;
 
-const MainLayer = styled.div`
+const MainLayer = styled.div<{
+  showUp: boolean;
+}>`
   /* background-color: blueviolet; */
   height: 380px;
   display: flex;
@@ -64,7 +62,18 @@ const MainLayer = styled.div`
       background-color: ${(props) => props.theme.lightBgColor};
       color: ${(props) => props.theme.colorBgTextColor};
     }
-    animation: ${AnimationShow} 2s ease;
+    ${({ showUp }) =>
+      showUp === true &&
+      css`
+        opacity: 0;
+        animation: ${AnimationShow} 2s ease forwards;
+      `}
+    ${({ showUp }) =>
+      showUp === false &&
+      css`
+        opacity: 1;
+        animation: none;
+      `}
   }
 `;
 
@@ -74,7 +83,9 @@ const MainHeader = styled.div`
   height: 246px;
 `;
 
-const MainTitle = styled.span`
+const MainTitle = styled.span<{
+  showUp: boolean;
+}>`
   font-size: 5.5em;
   display: flex;
   font-family: sans-serif; // root level
@@ -84,42 +95,133 @@ const MainTitle = styled.span`
   height: 2.5em; // em 절대 안써/
   /* background-color: aqua; */
   white-space: pre-wrap;
-  animation: ${AnimationSlideUp} 0.8s ease-in-out;
+  ${({ showUp }) =>
+    showUp === true &&
+    css`
+      opacity: 0;
+      animation: ${AnimationSlideUp} 0.8s ease-in-out forwards;
+    `}
+  ${({ showUp }) =>
+    showUp === false &&
+    css`
+      opacity: 1;
+      animation: none;
+    `}
 `;
-const SubTitle = styled.span`
+const SubTitle = styled.span<{
+  showUp: boolean;
+}>`
   font-family: sans-serif;
   letter-spacing: 0px;
   font-weight: 500; // default 500
   /* background-color: darkorange; */
   padding-top: 1px; // line-hieght 주던가 margin
-  animation: ${AnimationShow} 2s 0s ease;
+  ${({ showUp }) =>
+    showUp === true &&
+    css`
+      opacity: 0;
+      animation: ${AnimationShow} 2s 0s ease forwards;
+    `}
+  ${({ showUp }) =>
+    showUp === false &&
+    css`
+      opacity: 1;
+      animation: none;
+    `}
 `;
 
-const SubLayer = styled.div`
+const SubLayer = styled.div<{
+  showUp: boolean;
+}>`
   height: 800px;
   width: 330px;
   align-items: center;
   /* background-color: bisque; */
-  animation: ${AnimationShow} 0.6s 0s ease-in;
+  ${({ showUp }) =>
+    showUp === true &&
+    css`
+      opacity: 0;
+      animation: ${AnimationShow} 0.6s 0s ease-in forwards;
+    `}
+  ${({ showUp }) =>
+    showUp === false &&
+    css`
+      opacity: 1;
+      animation: none;
+    `}
 `;
 
-function MainSection() {
+const Block = (props: {
+  inViewport: boolean;
+  forwardedRef: any;
+  enterCount: number;
+}) => {
+  const { inViewport, forwardedRef, enterCount } = props;
   const mainText = "여행의 모든 것\n트리플로 한 번에";
   const subText = "예약부터 일정까지 앱 하나로 간편하게 준비하세요.";
+
+  if (inViewport && enterCount === 1) {
+    return (
+      <div ref={forwardedRef}>
+        <div className="container">
+          <ContentsLayer>
+            <MainLayer showUp={true}>
+              <MainHeader>
+                <MainTitle showUp={true}>{mainText}</MainTitle>
+                <SubTitle showUp={true}>{subText}</SubTitle>
+              </MainHeader>
+              <button>앱 설치하기</button>
+            </MainLayer>
+            <SubLayer showUp={true}>
+              <Phone
+                width={330}
+                height={680}
+                imgSrc={"./img/img_01_screen.png"}
+              />
+            </SubLayer>
+          </ContentsLayer>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div ref={forwardedRef}>
+      <div className="container">
+        <ContentsLayer>
+          <MainLayer showUp={false}>
+            <MainHeader>
+              <MainTitle showUp={false}>{mainText}</MainTitle>
+              <SubTitle showUp={false}>{subText}</SubTitle>
+            </MainHeader>
+            <button>앱 설치하기</button>
+          </MainLayer>
+          <SubLayer showUp={false}>
+            <Phone
+              width={330}
+              height={680}
+              imgSrc={"./img/img_01_screen.png"}
+            />
+          </SubLayer>
+        </ContentsLayer>
+      </div>
+    </div>
+  );
+};
+
+function MainSection() {
+  const ViewportBlock = handleViewport(Block /** options: {}, config: {} **/);
 
   return (
     <Container>
       <ContentsLayer>
-        <MainLayer>
-          <MainHeader>
-            <MainTitle>{mainText}</MainTitle>
-            <SubTitle>{subText}</SubTitle>
-          </MainHeader>
-          <button>앱 설치하기</button>
-        </MainLayer>
-        <SubLayer>
-          <Phone width={330} height={680} imgSrc={"./img/img_01_screen.png"} />
-        </SubLayer>
+        <ViewportBlock
+          onEnterViewport={() => {
+            console.log("1 Enter");
+          }}
+          onLeaveViewport={() => {
+            console.log("1 leave");
+          }}
+        />
       </ContentsLayer>
     </Container>
   );

@@ -56,7 +56,6 @@ const StyleSubFrame = styled.div`
 `;
 
 function Phone({ width, height, imgSrc }: IPhone) {
-  console.log(`width ${width}, height ${height}, img ${imgSrc}`);
   return (
     <StyleComponentsPhone width={width} height={height}>
       <StyleSubFrame>

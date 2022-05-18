@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import handleViewport from "react-in-viewport";
 import {
   AnimationSlideUp,
   AnimationSlideDown,
@@ -22,7 +23,9 @@ const AppAward = styled.div`
   height: 412px;
   justify-content: center;
 `;
-const AwardImg = styled.div`
+const AwardImg = styled.div<{
+  showUp: boolean;
+}>`
   /* box-sizing: border-box; */
   display: flex;
   justify-content: center;
@@ -31,7 +34,18 @@ const AwardImg = styled.div`
   width: 400px;
   /* background-color: Lime; */
   margin-right: 100px;
-  animation: ${AnimationSlideUp} 0.5s ease-in-out;
+  ${({ showUp }) =>
+    showUp === true &&
+    css`
+      opacity: 0;
+      animation: ${AnimationSlideUp} 0.5s ease-in-out forwards;
+    `}
+  ${({ showUp }) =>
+    showUp === false &&
+    css`
+      opacity: 1;
+      animation: none;
+    `}
   figure {
     /* margin: 0; */
     line-height: 0;
@@ -63,7 +77,9 @@ const AwardDescription = styled.div`
   justify-content: space-between;
   margin-left: 100px;
 `;
-const Description = styled.div`
+const Description = styled.div<{
+  showUp: boolean;
+}>`
   /* background-color: blanchedalmond; */
   height: 220px;
   display: flex;
@@ -76,10 +92,22 @@ const Description = styled.div`
   strong {
     font-weight: bold;
   }
-  opacity: 0;
-  animation: ${AnimationSlideUp} 0.5s ease-in-out 0.3s 1 forwards;
+  ${({ showUp }) =>
+    showUp === true &&
+    css`
+      opacity: 0;
+      animation: ${AnimationSlideUp} 0.5s ease-in-out 0.3s 1 forwards;
+    `}
+  ${({ showUp }) =>
+    showUp === false &&
+    css`
+      opacity: 1;
+      animation: none;
+    `}
 `;
-const Award = styled.div`
+const Award = styled.div<{
+  showUp: boolean;
+}>`
   /* background-color: cyan; */
   height: 160px;
   display: flex;
@@ -88,8 +116,19 @@ const Award = styled.div`
   color: rgba(58, 58, 58, 0.8);
   font-weight: bold;
   line-height: 22px;
-  opacity: 0;
-  animation: ${AnimationSlideUp} 0.5s ease-in-out 0.5s 1 forwards;
+
+  ${({ showUp }) =>
+    showUp === true &&
+    css`
+      opacity: 0;
+      animation: ${AnimationSlideUp} 0.5s ease-in-out 0.5s 1 forwards;
+    `}
+  ${({ showUp }) =>
+    showUp === false &&
+    css`
+      opacity: 1;
+      animation: none;
+    `}
 
   div {
     display: flex;
@@ -102,65 +141,153 @@ const Award = styled.div`
   }
 `;
 
+const Block = (props: {
+  inViewport: boolean;
+  forwardedRef: any;
+  enterCount: number;
+}) => {
+  const { inViewport, forwardedRef, enterCount } = props;
+  if (inViewport && enterCount === 1) {
+    return (
+      <div ref={forwardedRef}>
+        <div className="container">
+          <AppAward>
+            <AwardImg showUp={true}>
+              <figure>
+                <img src="./img/img-02-triple@3x.png" alt="" />
+                <figcaption>2021년 12월 기준</figcaption>
+              </figure>
+            </AwardImg>
+            <AwardDescription>
+              <Description showUp={true}>
+                <ul>
+                  <li>
+                    <strong>
+                      <CountUp start={600} end={700} />만 명
+                    </strong>
+                    <span>의 여행자</span>
+                  </li>
+                  <li>
+                    <strong>
+                      <CountUp start={60} end={100} />만 개
+                    </strong>
+                    <span>의 여행자</span>
+                  </li>
+                  <li>
+                    <strong>
+                      <CountUp start={400} end={470} />
+                    </strong>
+                    <span>의 여행자</span>
+                  </li>
+                </ul>
+              </Description>
+              <Award showUp={true}>
+                <div>
+                  <img src="./img/img-02-badge-google@3x.png" alt="" />
+                  <ul>
+                    <li>
+                      <span>2018 구글 플레이스토어</span>
+                    </li>
+                    <li>
+                      <span>올해의 앱 최우수 수상</span>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <img src="./img/img-02-badge-apple@4x.png" alt="" />
+                  <ul>
+                    <li>
+                      <span>2018 애플 앱스토어</span>
+                    </li>
+                    <li>
+                      <span>오늘의 여행앱 선정</span>
+                    </li>
+                  </ul>
+                </div>
+              </Award>
+            </AwardDescription>
+          </AppAward>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div ref={forwardedRef}>
+      <div className="container">
+        <AppAward>
+          <AwardImg showUp={false}>
+            <figure>
+              <img src="./img/img-02-triple@3x.png" alt="" />
+              <figcaption>2021년 12월 기준</figcaption>
+            </figure>
+          </AwardImg>
+          <AwardDescription>
+            <Description showUp={false}>
+              <ul>
+                <li>
+                  <strong>
+                    <CountUp start={600} end={700} />만 명
+                  </strong>
+                  <span>의 여행자</span>
+                </li>
+                <li>
+                  <strong>
+                    <CountUp start={60} end={100} />만 개
+                  </strong>
+                  <span>의 여행자</span>
+                </li>
+                <li>
+                  <strong>
+                    <CountUp start={400} end={470} />
+                  </strong>
+                  <span>의 여행자</span>
+                </li>
+              </ul>
+            </Description>
+            <Award showUp={false}>
+              <div>
+                <img src="./img/img-02-badge-google@3x.png" alt="" />
+                <ul>
+                  <li>
+                    <span>2018 구글 플레이스토어</span>
+                  </li>
+                  <li>
+                    <span>올해의 앱 최우수 수상</span>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <img src="./img/img-02-badge-apple@4x.png" alt="" />
+                <ul>
+                  <li>
+                    <span>2018 애플 앱스토어</span>
+                  </li>
+                  <li>
+                    <span>오늘의 여행앱 선정</span>
+                  </li>
+                </ul>
+              </div>
+            </Award>
+          </AwardDescription>
+        </AppAward>
+      </div>
+    </div>
+  );
+};
+
 function SectionTwo() {
+  const ViewportBlock = handleViewport(Block /** options: {}, config: {} **/);
+
   return (
     <Container>
-      <AppAward>
-        <AwardImg>
-          <figure>
-            <img src="./img/img-02-triple@3x.png" alt="" />
-            <figcaption>2021년 12월 기준</figcaption>
-          </figure>
-        </AwardImg>
-        <AwardDescription>
-          <Description>
-            <ul>
-              <li>
-                <strong>
-                  <CountUp start={600} end={700} />만 명
-                </strong>
-                <span>의 여행자</span>
-              </li>
-              <li>
-                <strong>
-                  <CountUp start={60} end={100} />만 개
-                </strong>
-                <span>의 여행자</span>
-              </li>
-              <li>
-                <strong>
-                  <CountUp start={400} end={470} />
-                </strong>
-                <span>의 여행자</span>
-              </li>
-            </ul>
-          </Description>
-          <Award>
-            <div>
-              <img src="./img/img-02-badge-google@3x.png" alt="" />
-              <ul>
-                <li>
-                  <span>2018 구글 플레이스토어</span>
-                </li>
-                <li>
-                  <span>올해의 앱 최우수 수상</span>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <img src="./img/img-02-badge-apple@4x.png" alt="" />
-              <ul>
-                <li>
-                  <span>2018 애플 앱스토어</span>
-                </li>
-                <li>
-                  <span>오늘의 여행앱 선정</span>
-                </li>
-              </ul>
-            </div>
-          </Award>
-        </AwardDescription>
-      </AppAward>
+      <ViewportBlock
+        onEnterViewport={() => {
+          console.log("2 Enter");
+        }}
+        onLeaveViewport={() => {
+          console.log("2 leave");
+        }}
+      />
     </Container>
   );
 }

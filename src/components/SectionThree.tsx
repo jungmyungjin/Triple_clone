@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import handleViewport from "react-in-viewport";
 import Phone from "./Phone";
-import { BrowserRouter } from "react-router-dom";
 import {
   AnimationSlideUp,
   AnimationSlideDown,
@@ -27,29 +27,56 @@ const StyledContents = styled.div`
   text-align: center;
   margin: 0px;
 `;
-const StyledHeading = styled.h2`
+const StyledHeading = styled.h2<{
+  showUp: boolean;
+}>`
   display: inline-block;
   /* background-color: beige; */
   position: relative;
   font-size: 52px;
   line-height: 68px;
   top: 140px;
-  opacity: 0;
-  animation: ${AnimationSlideUp} 0.8s ease-in-out 1 forwards;
+
+  ${({ showUp }) =>
+    showUp === true &&
+    css`
+      opacity: 0;
+      animation: ${AnimationSlideUp} 0.8s ease-in-out 1 forwards;
+    `}
+  ${({ showUp }) =>
+    showUp === false &&
+    css`
+      opacity: 1;
+      animation: none;
+    `}
 `;
 
-const StyledSubHeading = styled.div`
+const StyledSubHeading = styled.div<{
+  showUp: boolean;
+}>`
   /* background-color: blueviolet; */
   font-size: 17px;
   line-height: 30px;
   letter-spacing: -0.283333px;
   position: relative;
   top: 170px;
-  opacity: 0;
-  animation: ${AnimationSlideUp} 0.8s ease-in-out 0.08s 1 forwards;
+  ${({ showUp }) =>
+    showUp === true &&
+    css`
+      opacity: 0;
+      animation: ${AnimationSlideUp} 0.8s ease-in-out 0.08s 1 forwards;
+    `}
+  ${({ showUp }) =>
+    showUp === false &&
+    css`
+      opacity: 1;
+      animation: none;
+    `}
 `;
 
-const StyledPhones = styled.div`
+const StyledPhones = styled.div<{
+  showUp: boolean;
+}>`
   position: absolute;
   bottom: -40px;
   width: 100%;
@@ -60,43 +87,111 @@ const StyledPhones = styled.div`
     margin: 0px 10px;
     /* background-color: aqua; */
   }
-  opacity: 0;
-  animation: ${AnimationSlideUp} 0.8s ease-in-out 0.1s 1 forwards;
+  ${({ showUp }) =>
+    showUp === true &&
+    css`
+      opacity: 0;
+      animation: ${AnimationSlideUp} 0.8s ease-in-out 0.1s 1 forwards;
+    `}
+  ${({ showUp }) =>
+    showUp === false &&
+    css`
+      opacity: 1;
+      animation: none;
+    `}
 `;
+const Block = (props: {
+  inViewport: boolean;
+  forwardedRef: any;
+  enterCount: number;
+}) => {
+  const { inViewport, forwardedRef, enterCount } = props;
+  if (inViewport && enterCount === 1) {
+    return (
+      <div ref={forwardedRef}>
+        <div className="container">
+          <StyledContents>
+            <StyledHeading showUp={true}>
+              모든 예약을
+              <br />
+              최저가로 한 번에!
+            </StyledHeading>
+            <StyledSubHeading showUp={true}>
+              항공권부터 숙소, 투어·티켓까지 최저가로 예약.
+              <br />
+              트리플 전용 특가는 보너스.
+            </StyledSubHeading>
+            <StyledPhones showUp={true}>
+              <Phone
+                width={290}
+                height={598}
+                imgSrc={"./img/img-07-screen-1.png"}
+              />
+              <Phone
+                width={290}
+                height={598}
+                imgSrc={"./img/img_07_screen_2.png"}
+              />
+              <Phone
+                width={290}
+                height={598}
+                imgSrc={"./img/img_07_screen_3.png"}
+              />
+            </StyledPhones>
+          </StyledContents>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div ref={forwardedRef}>
+      <div className="container">
+        <StyledContents>
+          <StyledHeading showUp={false}>
+            모든 예약을
+            <br />
+            최저가로 한 번에!
+          </StyledHeading>
+          <StyledSubHeading showUp={false}>
+            항공권부터 숙소, 투어·티켓까지 최저가로 예약.
+            <br />
+            트리플 전용 특가는 보너스.
+          </StyledSubHeading>
+          <StyledPhones showUp={false}>
+            <Phone
+              width={290}
+              height={598}
+              imgSrc={"./img/img-07-screen-1.png"}
+            />
+            <Phone
+              width={290}
+              height={598}
+              imgSrc={"./img/img_07_screen_2.png"}
+            />
+            <Phone
+              width={290}
+              height={598}
+              imgSrc={"./img/img_07_screen_3.png"}
+            />
+          </StyledPhones>
+        </StyledContents>
+      </div>
+    </div>
+  );
+};
 
 function SectionThree() {
+  const ViewportBlock = handleViewport(Block /** options: {}, config: {} **/);
   return (
     <StyledContainer>
-      <StyledContents>
-        <StyledHeading>
-          모든 예약을
-          <br />
-          최저가로 한 번에!
-        </StyledHeading>
-
-        <StyledSubHeading>
-          항공권부터 숙소, 투어·티켓까지 최저가로 예약.
-          <br />
-          트리플 전용 특가는 보너스.
-        </StyledSubHeading>
-        <StyledPhones>
-          <Phone
-            width={290}
-            height={598}
-            imgSrc={"./img/img-07-screen-1.png"}
-          />
-          <Phone
-            width={290}
-            height={598}
-            imgSrc={"./img/img_07_screen_2.png"}
-          />
-          <Phone
-            width={290}
-            height={598}
-            imgSrc={"./img/img_07_screen_3.png"}
-          />
-        </StyledPhones>
-      </StyledContents>
+      <ViewportBlock
+        onEnterViewport={() => {
+          console.log("3 Enter");
+        }}
+        onLeaveViewport={() => {
+          console.log("3 leave");
+        }}
+      />
     </StyledContainer>
   );
 }
