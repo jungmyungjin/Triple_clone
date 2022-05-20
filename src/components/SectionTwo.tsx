@@ -171,13 +171,13 @@ const Block = (props: {
                     <strong>
                       <CountUp start={60} end={100} />만 개
                     </strong>
-                    <span>의 여행자</span>
+                    <span>의 여행 리뷰</span>
                   </li>
                   <li>
                     <strong>
                       <CountUp start={400} end={470} />
                     </strong>
-                    <span>의 여행자</span>
+                    <span>의 여행 일정</span>
                   </li>
                 </ul>
               </Description>
@@ -225,22 +225,16 @@ const Block = (props: {
             <Description showUp={false}>
               <ul>
                 <li>
-                  <strong>
-                    <CountUp start={600} end={700} />만 명
-                  </strong>
+                  <strong>700 만 명</strong>
                   <span>의 여행자</span>
                 </li>
                 <li>
-                  <strong>
-                    <CountUp start={60} end={100} />만 개
-                  </strong>
-                  <span>의 여행자</span>
+                  <strong>100 만 개</strong>
+                  <span>의 여행 리뷰</span>
                 </li>
                 <li>
-                  <strong>
-                    <CountUp start={400} end={470} />
-                  </strong>
-                  <span>의 여행자</span>
+                  <strong>470 만 개</strong>
+                  <span>470 의 여행일정</span>
                 </li>
               </ul>
             </Description>
