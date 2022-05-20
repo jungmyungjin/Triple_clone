@@ -1,11 +1,7 @@
 import styled, { css } from "styled-components";
 import handleViewport from "react-in-viewport";
 import Phone from "./Phone";
-import {
-  AnimationSlideUp,
-  AnimationSlideDown,
-  AnimationShow,
-} from "./AnimationSlideUp";
+import { AnimationSlideUp, AnimationShow } from "./AnimationSlideUp";
 
 const Container = styled.div`
   /* top: 0px; */
@@ -65,14 +61,12 @@ const MainLayer = styled.div<{
     ${({ showUp }) =>
       showUp === true &&
       css`
-        opacity: 0;
         animation: ${AnimationShow} 2s ease forwards;
       `}
     ${({ showUp }) =>
       showUp === false &&
       css`
         opacity: 1;
-        animation: none;
       `}
   }
 `;

@@ -29,6 +29,22 @@ export const AnimationShow = keyframes`
 	}
 `;
 
-// function AnimationSlideUp() {
-//   return <></>;
-// }
+export const AnimationShowDown = keyframes`
+	from {
+		opacity: 0;
+		transform: translateY(-100%);
+	}
+	to {
+		opacity: 1;
+	}
+`;
+
+export const AnimationCloseUp = keyframes`
+	from {
+		opacity: 1;
+	}
+	to {
+		transform: translateY(-100%);
+		opacity: 0;
+	}
+`;

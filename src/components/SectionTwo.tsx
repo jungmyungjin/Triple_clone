@@ -1,10 +1,6 @@
 import styled, { css } from "styled-components";
 import handleViewport from "react-in-viewport";
-import {
-  AnimationSlideUp,
-  AnimationSlideDown,
-  AnimationShow,
-} from "./AnimationSlideUp";
+import { AnimationSlideUp } from "./AnimationSlideUp";
 import CountUp from "react-countup";
 
 const Container = styled.div`
@@ -120,14 +116,12 @@ const Award = styled.div<{
   ${({ showUp }) =>
     showUp === true &&
     css`
-      opacity: 0;
       animation: ${AnimationSlideUp} 0.5s ease-in-out 0.5s 1 forwards;
     `}
   ${({ showUp }) =>
     showUp === false &&
     css`
       opacity: 1;
-      animation: none;
     `}
 
   div {
